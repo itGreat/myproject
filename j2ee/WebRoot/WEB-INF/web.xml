@@ -16,6 +16,24 @@
   	<url-pattern>/hello.do</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>TableServlet</servlet-name>
+  	<servlet-class>com.gc.web.TableServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>TableServlet</servlet-name>
+  	<url-pattern>/tb.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>StudentServlet</servlet-name>
+  	<servlet-class>com.gc.web.StudentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>StudentServlet</servlet-name>
+  	<url-pattern>/stu.do</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
