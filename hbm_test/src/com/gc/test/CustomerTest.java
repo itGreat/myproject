@@ -36,7 +36,7 @@ public class CustomerTest {
 	}
 	
 	@Test
-	public void find(){
+	public void findByName(){
 		CustomerDao dao = new CustomerDao();
 		List<Customer> customers = dao.findByName("王");
 		for (Customer e : customers) {
