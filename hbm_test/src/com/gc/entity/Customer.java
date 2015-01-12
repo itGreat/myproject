@@ -11,6 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.Proxy;
+
 /**
  * @author gongchang
  * 描述：客户
@@ -18,6 +21,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="t_customer")
+//@Proxy(lazy=false)
 public class Customer extends ID{
 	
 	/** 姓名*/

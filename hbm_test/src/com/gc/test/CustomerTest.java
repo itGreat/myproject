@@ -43,4 +43,34 @@ public class CustomerTest {
 			System.out.println("id:"+e.getId()+"\t name:"+e.getName());
 		}
 	}
+	
+	@Test
+	public void addData(){
+		CustomerDao dao = new CustomerDao();
+		dao.addData();
+	}
+	
+	@Test
+	public void findAll(){
+		CustomerDao dao = new CustomerDao();
+		dao.findAll();
+	}
+	
+	@Test
+	public void get(){
+		CustomerDao dao = new CustomerDao();
+		dao.get("402880fa4acde10b014acde10d920000");
+	}
+	
+	@Test
+	public void load(){
+		CustomerDao dao = new CustomerDao();
+		dao.load("402880fa4acde10b014acde10d920000");
+	}
+	
+	@Test
+	public void find2(){
+		CustomerDao dao = new CustomerDao();
+		dao.find("402880fa4acde10b014acde10d920000");
+	}
 }
