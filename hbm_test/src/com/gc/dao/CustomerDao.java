@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -120,8 +121,8 @@ public class CustomerDao extends AbstractDao implements IBaseDao<Customer> {
 		
 		for (int i = 0; i < 1000; i++) {
 			Customer t = new Customer();
-			t.setAge(18);
-			t.setName("张三");
+			t.setAge(r.nextInt(100));
+			t.setName("张三"+i);
 			Date date = new Date();
 			date.setTime(tm - r.nextInt(Integer.MAX_VALUE));
 			t.setBirthDate(date);
@@ -136,6 +137,53 @@ public class CustomerDao extends AbstractDao implements IBaseDao<Customer> {
 			session.save(order);
 		}
 		ts.commit();
+	}
+
+	public List<Customer> findPage(Integer pageSize, Integer pageNo,String keyword) {
+		StringBuffer hql = new StringBuffer();
+		hql.append(" select t from Customer t where 1=1 ");
+		boolean hasLikeName = null != keyword && !"".equals(keyword);
+		if(hasLikeName){
+			hql.append(" and t.name like :name ");
+		}
+		hql.append(" order by t.id asc ");
+		Session session = getSession();
+		Transaction ts = session.beginTransaction();
+		ts.begin();
+		Query query = session.createQuery(hql.toString());
+		
+		if(hasLikeName){
+			query.setParameter("name", "%"+keyword+"%");
+		}
+		
+		List<Customer> list = query.setFirstResult( (pageNo * pageSize) - pageSize )
+			.setMaxResults(pageSize)
+			.list();
+		
+		ts.commit();
+		return list;
+	}
+
+	public Integer findPageTotol(String keyword) {
+		StringBuffer hql = new StringBuffer();
+		hql.append(" select count(t) from Customer t where 1=1 ");
+		boolean hasLikeName = null != keyword && !"".equals(keyword);
+		if(hasLikeName){
+			hql.append(" and t.name like :name ");
+		}
+		hql.append(" order by t.id asc ");
+		Session session = getSession();
+		Transaction ts = session.beginTransaction();
+		ts.begin();
+		Query query = session.createQuery(hql.toString());
+		
+		if(hasLikeName){
+			query.setParameter("name", "%"+keyword+"%");
+		}
+		Object result = query.uniqueResult();
+		 
+		ts.commit();
+		return null != result ? Integer.valueOf(result.toString()) : 0;
 	}
 	
 }

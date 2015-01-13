@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+<web-app version="3.0" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-	 
-	<welcome-file-list>
-		<welcome-file>/index.jsp</welcome-file>
-	</welcome-file-list>
+  <display-name></display-name>	
+  
+  <servlet>
+  	<servlet-name>BusinessServlet</servlet-name>
+  	<servlet-class>com.gc.servlet.BusinessServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>BusinessServlet</servlet-name>
+  	<url-pattern>/business/index.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>CustomerListServlet</servlet-name>
+  	<servlet-class>com.gc.servlet.CustomerListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CustomerListServlet</servlet-name>
+  	<url-pattern>/business/customerList.do</url-pattern>
+  </servlet-mapping>
+  
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
 </web-app>
