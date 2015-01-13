@@ -5,5 +5,5 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/hibernate3"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/junit-4.12"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/j2ee_6"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

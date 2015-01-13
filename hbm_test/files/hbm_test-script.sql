@@ -5,11 +5,12 @@ t_customer
 DELETE FROM t_customer;
 DELETE FROM t_customer_t_order;
 DELETE FROM t_order;
-
+0 15 30 45
+1 2  3  4
 this
 CODE
 DATE
-SELECT * FROM t_customer 
+SELECT * FROM t_customer t ORDER BY t.id ASC LIMIT 15,15
 SELECT * FROM t_customer t WHERE t.name LIKE '%王  %';
 297eeaad4ad82333014ad8233acd0000
 402880fa4acde10b014acde10d920000
