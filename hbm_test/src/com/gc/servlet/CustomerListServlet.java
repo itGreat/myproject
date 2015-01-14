@@ -27,9 +27,5 @@ public class CustomerListServlet extends MyHttpServlet{
 		request.setAttribute("list", list);
 		request.setAttribute("pageHtml", PagerUtil.getPageHtml(total, pageNo, pageSize));
 		forward("/business/customer/customer_list.jsp", request, response);
-		
-		
 	}
-
-	 
 }

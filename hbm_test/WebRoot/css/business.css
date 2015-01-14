@@ -93,6 +93,7 @@ body{
     margin-top: 10px;
     margin-left: 10px;
 	font: 15px "微软雅黑","simhei";
+	
 }
 
 .content_mlRule {
@@ -143,7 +144,10 @@ color: red;
 background-color:#DCEBF9;
 }
 .css_table_blue .overtr{
-background-color:#627CD2;
+background-color:#9FB7F9;
+}
+.css_table_blue .selecttr{
+background-color:#0072C6;
 }
 
 .pager{ font-family:Verdana; font-size:13px;margin-top: 10px;}

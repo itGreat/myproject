@@ -20,7 +20,23 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>CustomerListServlet</servlet-name>
-  	<url-pattern>/business/customerList.do</url-pattern>
+  	<url-pattern>/business/customer_list.do</url-pattern>
+  </servlet-mapping>
+   <servlet>
+  	<servlet-name>CustomerInputServlet</servlet-name>
+  	<servlet-class>com.gc.servlet.CustomerInputServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CustomerInputServlet</servlet-name>
+  	<url-pattern>/business/customer_input.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>CustomerDeleteServlet</servlet-name>
+  	<servlet-class>com.gc.servlet.CustomerDeleteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CustomerDeleteServlet</servlet-name>
+  	<url-pattern>/business/customer_delete.do</url-pattern>
   </servlet-mapping>
   
   <welcome-file-list>

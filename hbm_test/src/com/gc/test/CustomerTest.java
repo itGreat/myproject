@@ -16,7 +16,7 @@ public class CustomerTest {
 		CustomerDao dao = new CustomerDao();
 		Customer t = new Customer();
 		t.setAge(18);
-		t.setName("张三");
+		t.setName("张三3f");
 		t.setBirthDate(new SimpleDateFormat("yyyy-MM-dd").parse("2000-01-01"));
 		dao.saveOrUpdate(t);
 	}

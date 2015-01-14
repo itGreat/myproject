@@ -6,7 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Hibernate index</title>
 <link type="text/css" rel="StyleSheet" href="${ctx}/css/business.css">
-<script src="${ctx}/scripts/jquery/jquery-1.8.0.js" type="text/javascript"></script>
+<link type="text/css" rel="StyleSheet" href="${ctx}/scripts/jquery/ui/css/jquery-ui-1.9.2.custom.css">
+<script src="${ctx}/scripts/jquery/ui/js/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="${ctx}/scripts/jquery/ui/js/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
 <script src="${ctx}/js/business.js" type="text/javascript"></script>
 <script type="text/javascript">
 var ctx = "${ctx}";
@@ -30,9 +32,9 @@ var ctx = "${ctx}";
 			<div class="content_middle">
 				
 				<div class="content_bar">
-					<button class="content_btn" type="button" name="action">新增</button>
-					<button class="content_btn" type="button" name="action">修改</button>
-					<button class="content_btn" type="button" name="action">删除</button>
+					<button id="add_btn" class="content_btn" type="button" name="action">新增</button>
+					<button id="edit_btn" class="content_btn" type="button" name="action">修改</button>
+					<button id="del_btn" class="content_btn" type="button" name="action">删除</button>
 				</div>
 				<div class="content_mlRule"></div>
 				<div id="" class="content_InnerContainer">
