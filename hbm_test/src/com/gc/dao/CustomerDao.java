@@ -89,6 +89,12 @@ public class CustomerDao extends AbstractDao implements IBaseDao<Customer> {
 		return (null != list && list.size() > 0 ) ? list.get(0) : new Customer();
 	}
 
+	/*11.4.3 分组查询
+	1 按照姓名分组，统计t_customer表中具有相同姓名的记录的数目
+	2 按照客户分组，统计每个客户的订单数
+	3 统计每个客户发出的所有订单的总价*/
+
+	
 	
 	public List<Customer> findByName(String name) {
 		Session session = getSession();
@@ -139,6 +145,33 @@ public class CustomerDao extends AbstractDao implements IBaseDao<Customer> {
 		ts.commit();
 	}
 
+	public void addRandomData(){
+		Session session = getSession();
+		Transaction ts = session.beginTransaction();
+		ts.begin();
+		Long tm = System.currentTimeMillis();
+		Random r = new Random();
+		String[] names = new String[]{"刘备","关羽","韩遂","刘岱","甘宁","黄忠","贾诩","司马懿","孙策","孙权","郭嘉","曹仁","曹操","李典","孙坚","陈武","陈登","崔琰","丁谧","邓飏"};
+		for (int i = 0; i < 1000; i++) {
+			Customer t = new Customer();
+			t.setAge(r.nextInt(100));
+			t.setName(names[ r.nextInt(20)]);
+			Date date = new Date();
+			date.setTime(tm - r.nextInt(Integer.MAX_VALUE));
+			t.setBirthDate(date);
+			
+			session.save(t);
+			
+			Order order = new Order();
+			order.setCreateDate(new Date());
+			order.setContent("生成任务"+i);
+			
+			order.setCustomer(t );
+			session.save(order);
+		}
+		ts.commit();
+	}
+	
 	public List<Customer> findPage(Integer pageSize, Integer pageNo,String keyword) {
 		StringBuffer hql = new StringBuffer();
 		hql.append(" select t from Customer t where 1=1 ");
