@@ -94,9 +94,7 @@ public class CustomerDao extends AbstractDao implements IBaseDao<Customer> {
 		Session session = getSession();
 		Transaction ts = session.beginTransaction();
 		ts.begin();
-//		List<Customer> list = null;
-//		session.createSQLQuery(" SELECT * FROM t_customer t WHERE t.name LIKE '%王%'; ").list();
-		 List<Customer> list = session.createQuery(" select t From Customer t where t.name like :name ")
+		List<Customer> list = session.createQuery(" select t From Customer t where t.name like :name ")
 			.setParameter("name", "%"+name+"%")
 			.list();
 		ts.commit();

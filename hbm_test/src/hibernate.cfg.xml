@@ -34,10 +34,13 @@
 		<!-- hibernate.hbm2ddl.auto实体映射数据库-->
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		
+		<!-- 客户和订单结构 -->
 		<mapping class="com.gc.entity.Customer"/>
 		<mapping class="com.gc.entity.Order"/>
-<!-- 		<mapping resource="com.gc.entity.Customer"/> -->
-<!-- 		<mapping resource="com.gc.entity.Order"/> -->
+		
+		<!-- 员工和部门结构 -->
+		<mapping class="com.gc.entity.Emp"/>
+		<mapping class="com.gc.entity.Dept"/>
 
 	</session-factory>
 </hibernate-configuration>
