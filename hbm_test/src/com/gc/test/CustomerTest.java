@@ -12,6 +12,12 @@ import com.gc.entity.Customer;
 public class CustomerTest {
 	
 	@Test
+	public void initData(){
+		CustomerDao dao = new CustomerDao();
+		dao.initData();
+	}
+	
+	@Test
 	public void add() throws ParseException {
 		CustomerDao dao = new CustomerDao();
 		Customer t = new Customer();
@@ -42,18 +48,6 @@ public class CustomerTest {
 		for (Customer e : customers) {
 			System.out.println("id:"+e.getId()+"\t name:"+e.getName());
 		}
-	}
-	
-	@Test
-	public void addData(){
-		CustomerDao dao = new CustomerDao();
-		dao.addData();
-	}
-	
-	@Test
-	public void addRandomData(){
-		CustomerDao dao = new CustomerDao();
-		dao.addRandomData();
 	}
 	
 	@Test

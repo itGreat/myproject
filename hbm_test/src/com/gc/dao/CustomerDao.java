@@ -17,6 +17,33 @@ import com.gc.entity.Order;
 public class CustomerDao extends AbstractDao implements IBaseDao<Customer> {
 	
 
+	public void initData(){
+		Session session = getSession();
+		Transaction ts = session.beginTransaction();
+		ts.begin();
+		Long tm = System.currentTimeMillis();
+		Random r = new Random();
+		String[] names = new String[]{"刘备","关羽","韩遂","刘岱","甘宁","黄忠","贾诩","司马懿","孙策","孙权","郭嘉","曹仁","曹操","李典","孙坚","陈武","陈登","崔琰","丁谧","邓飏"};
+		for (int i = 0; i < 1000; i++) {
+			Customer t = new Customer();
+			t.setAge(r.nextInt(100));
+			t.setName(names[ r.nextInt(20)]);
+			Date date = new Date();
+			date.setTime(tm - r.nextInt(Integer.MAX_VALUE));
+			t.setBirthDate(date);
+			
+			session.save(t);
+			
+			Order order = new Order();
+			order.setCreateDate(new Date());
+			order.setContent("生成任务"+i);
+			
+			order.setCustomer(t );
+			session.save(order);
+		}
+		ts.commit();
+	}
+	
 	@Override
 	public Customer saveOrUpdate(Customer t) {
 		Session session = getSession();
@@ -114,60 +141,6 @@ public class CustomerDao extends AbstractDao implements IBaseDao<Customer> {
 		 List<Customer> list = session.createQuery(" From Customer ").list();
 		ts.commit();
 		return list;
-	}
-	
-	public void addData(){
-		Session session = getSession();
-		Transaction ts = session.beginTransaction();
-		ts.begin();
-		Long tm = System.currentTimeMillis();
-		Random r = new Random();
-		
-		for (int i = 0; i < 1000; i++) {
-			Customer t = new Customer();
-			t.setAge(r.nextInt(100));
-			t.setName("张三"+i);
-			Date date = new Date();
-			date.setTime(tm - r.nextInt(Integer.MAX_VALUE));
-			t.setBirthDate(date);
-			
-			session.save(t);
-			
-			Order order = new Order();
-			order.setCreateDate(new Date());
-			order.setContent("test");
-			
-			order.setCustomer(t );
-			session.save(order);
-		}
-		ts.commit();
-	}
-
-	public void addRandomData(){
-		Session session = getSession();
-		Transaction ts = session.beginTransaction();
-		ts.begin();
-		Long tm = System.currentTimeMillis();
-		Random r = new Random();
-		String[] names = new String[]{"刘备","关羽","韩遂","刘岱","甘宁","黄忠","贾诩","司马懿","孙策","孙权","郭嘉","曹仁","曹操","李典","孙坚","陈武","陈登","崔琰","丁谧","邓飏"};
-		for (int i = 0; i < 1000; i++) {
-			Customer t = new Customer();
-			t.setAge(r.nextInt(100));
-			t.setName(names[ r.nextInt(20)]);
-			Date date = new Date();
-			date.setTime(tm - r.nextInt(Integer.MAX_VALUE));
-			t.setBirthDate(date);
-			
-			session.save(t);
-			
-			Order order = new Order();
-			order.setCreateDate(new Date());
-			order.setContent("生成任务"+i);
-			
-			order.setCustomer(t );
-			session.save(order);
-		}
-		ts.commit();
 	}
 	
 	public List<Customer> findPage(Integer pageSize, Integer pageNo,String keyword) {

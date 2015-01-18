@@ -18,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="t_customer")
-//@Proxy(lazy=false)
+//@Proxy(lazy=false) //类基本懒加载
 public class Customer extends ID{
 	
 	/** 姓名*/

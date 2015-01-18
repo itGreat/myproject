@@ -25,7 +25,6 @@ public class CustomerListServlet extends MyHttpServlet{
 		List<Customer> list = dao.findPage(pageSize,pageNo,keyword);
 		Integer total = dao.findPageTotol(keyword);
 		request.setAttribute("list", list);
-		dao.addRandomData();
 		request.setAttribute("pageHtml", PagerUtil.getPageHtml(total, pageNo, pageSize));
 		forward("/business/customer/customer_list.jsp", request, response);
 	}
