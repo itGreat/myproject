@@ -51,6 +51,12 @@ public class CustomerTest {
 	}
 	
 	@Test
+	public void addRandomData(){
+		CustomerDao dao = new CustomerDao();
+		dao.addRandomData();
+	}
+	
+	@Test
 	public void findAll(){
 		CustomerDao dao = new CustomerDao();
 		dao.findAll();
