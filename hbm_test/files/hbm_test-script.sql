@@ -77,3 +77,57 @@ INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(107,1003
 INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(108,100302,'典韦','2011-08-01','Employee',1003,27000,22700,105);
 INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(109,100303,'荀彧','2013-08-01','Employee',1003,29000,22900,105);
 
+
+-- 计算员工的名字、月薪和年薪？
+SELECT t.ename 姓名,t.sal 月薪,t.sal*12 年薪 FROM emp t 
+
+-- 插入empno为1213，名称为'吕布'，其余字段为null
+INSERT INTO emp(id,empNo,ename) VALUES('1111',1213,'吕布'); 
+SELECT * FROM emp t WHERE t.ename = '吕布'
+
+-- 查询emp表员工姓名和职位，如果没有职位，显示'no position' 
+SELECT t.ename AS '姓名',IFNULL(t.job,'no position') '职位' FROM emp t
+
+SELECT * FROM emp t WHERE t.job IS NULL
+
+-- 查询emp表员工姓名和入职时间，如果没有入职时间，显示一个默认的时间
+SELECT t.ename,IFNULL(t.hiredate,'2011-01-01') FROM emp t
+
+-- 将emp表复制到emp_xxx
+-- 机构中有多少种职位
+-- 员工分别在那些部门
+-- 查询每个部门不重复的职位
+-- 薪水高于10000元的员工数据
+-- 职位是employee的员工数据
+-- 使用lower()、upper()函数
+-- 使用 between ... and 关键字查询
+-- 1)薪水大于50000并且小于100000的员工数据
+-- 2)入职时间在2011年的员工
+-- 使用in(列表)
+-- 模糊匹配 like %
+-- 1)列出职位中包含sales字符的员工数据
+-- 2)列出职位中第二个字符是a的员工数据
+-- 3)查询数据库中有多少个名字包含'emp'的表
+-- 4)查询数据库中有多少个名字以'S_'开口的表
+-- is null ,那些员工没有奖金
+-- is not null 那些员工有奖金
+-- not between ... and ... 薪水不在 50000 至 80000的员工
+-- not in(list) 不是部门103和105的员工
+
+-- SQL语言的分类
+-- 1) 数据库定义语言（DDL），对数据结构起作用
+CREATE
+DROP
+ALTER
+TRUNCATE
+-- 2) 数据库操纵语言（DCL）
+INSERT
+UPDATE
+DELETE
+-- 3) 数据库查询语言（DQL）
+SELECT
+-- 4) 事物控制语句（DML）
+COMMIT
+ROLLBACK
+SAVEPOINT
+-- 1)
