@@ -94,25 +94,60 @@ SELECT * FROM emp t WHERE t.job IS NULL
 SELECT t.ename,IFNULL(t.hiredate,'2011-01-01') FROM emp t
 
 -- 将emp表复制到emp_xxx
+CREATE TABLE emp_xxx AS SELECT * FROM emp;
+SELECT * FROM emp_xxx;
+
 -- 机构中有多少种职位
--- 员工分别在那些部门
+SELECT DISTINCT t.job FROM emp t WHERE t.job IS NOT NULL;
+
+-- 员工分别在那些部门 
+SELECT DISTINCT d.dname 部门 FROM emp t,dept d WHERE t.deptNo = d.deptNo
+SELECT DISTINCT d.dname 部门 FROM emp t LEFT JOIN dept d ON t.deptNo = d.deptNo WHERE t.deptNo IS NOT NULL
+
 -- 查询每个部门不重复的职位
+SELECT d.dname,t.job FROM dept d LEFT JOIN emp t ON d.deptNo = t.deptNo WHERE t.deptNo IS NOT NULL
+GROUP BY d.dname
+
 -- 薪水高于10000元的员工数据
+SELECT * FROM emp t WHERE t.sal > 10000
+SELECT * FROM emp t WHERE t.sal < 10000
+
 -- 职位是employee的员工数据
+SELECT * FROM emp t WHERE t.job = 'employee'
+SELECT * FROM emp t WHERE t.job = 'Employee'
+
 -- 使用lower()、upper()函数
+SELECT LOWER(t.job) FROM emp t;
+SELECT UPPER(t.job) FROM emp t;
+
 -- 使用 between ... and 关键字查询
 -- 1)薪水大于50000并且小于100000的员工数据
+SELECT * FROM emp t WHERE t.sal BETWEEN 50000 AND 100000
 -- 2)入职时间在2011年的员工
+SELECT * FROM emp t WHERE t.hiredate BETWEEN '2011-01-01' AND '2011-12-31'
+
 -- 使用in(列表)
+SELECT * FROM emp t WHERE t.job IN('Employee','Manager');
+
 -- 模糊匹配 like %
+SELECT * FROM emp t WHERE t.ename LIKE '%张%'
 -- 1)列出职位中包含sales字符的员工数据
+SELECT * FROM emp t WHERE t.job LIKE '%sales%'
 -- 2)列出职位中第二个字符是a的员工数据
+SELECT * FROM emp t WHERE t.job LIKE '_a%'
 -- 3)查询数据库中有多少个名字包含'emp'的表
+SHOW TABLES
+
 -- 4)查询数据库中有多少个名字以'S_'开口的表
+
 -- is null ,那些员工没有奖金
+SELECT * FROM emp t WHERE t.comm IS NULL
 -- is not null 那些员工有奖金
--- not between ... and ... 薪水不在 50000 至 80000的员工
+SELECT * FROM emp t WHERE t.comm IS NOT NULL
+-- not between ... and ... 薪水不在 10000 至 30000 的员工
+SELECT * FROM emp t WHERE t.sal NOT BETWEEN 10000 AND 30000
 -- not in(list) 不是部门103和105的员工
+SELECT * FROM emp t WHERE t.deptNo NOT IN(103,105)
 
 -- SQL语言的分类
 -- 1) 数据库定义语言（DDL），对数据结构起作用
