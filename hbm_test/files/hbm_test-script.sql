@@ -1,33 +1,34 @@
 USE hbm_test;
+show user;
 
--- åˆ é™¤è¡¨
+-- É¾³ý±í
 DROP TABLE  t_order;
 DROP TABLE t_customer;
 
--- åˆ é™¤è¡¨æ•°æ®
+-- É¾³ý±íÊý¾Ý
 DELETE FROM t_customer;
 DELETE FROM t_order;
 
--- æŸ¥è¯¢è¡¨æ•°æ®é‡
+-- ²éÑ¯±íÊý¾ÝÁ¿
 SELECT COUNT(*) FROM t_customer t 
 SELECT COUNT(*) FROM t_order t 
 
--- æŸ¥è¯¢è¡¨
+-- ²éÑ¯±í
 SELECT * FROM t_customer t 
 SELECT * FROM t_order
 
-SELECT * FROM t_customer t WHERE t.name LIKE '%çŽ‹  %';
+SELECT * FROM t_customer t WHERE t.name LIKE '%Íõ  %';
 
--- åˆ†é¡µæŸ¥è¯¢
+-- ·ÖÒ³²éÑ¯
 SELECT * FROM t_customer t ORDER BY t.id ASC LIMIT 15,15
 
 
 
 /*
-11.4.3 åˆ†ç»„æŸ¥è¯¢
-1 æŒ‰ç…§å§“ååˆ†ç»„ï¼Œç»Ÿè®¡t_customerè¡¨ä¸­å…·æœ‰ç›¸åŒå§“åçš„è®°å½•çš„æ•°ç›®
-2 æŒ‰ç…§å®¢æˆ·åˆ†ç»„ï¼Œç»Ÿè®¡æ¯ä¸ªå®¢æˆ·çš„è®¢å•æ•°
-3 ç»Ÿè®¡æ¯ä¸ªå®¢æˆ·å‘å‡ºçš„æ‰€æœ‰è®¢å•çš„æ€»ä»·
+11.4.3 ·Ö×é²éÑ¯
+1 °´ÕÕÐÕÃû·Ö×é£¬Í³¼Æt_customer±íÖÐ¾ßÓÐÏàÍ¬ÐÕÃûµÄ¼ÇÂ¼µÄÊýÄ¿
+2 °´ÕÕ¿Í»§·Ö×é£¬Í³¼ÆÃ¿¸ö¿Í»§µÄ¶©µ¥Êý
+3 Í³¼ÆÃ¿¸ö¿Í»§·¢³öµÄËùÓÐ¶©µ¥µÄ×Ü¼Û
 */
 -- t.name,COUNT(t.name)
 SELECT  t.name,COUNT(t.name) FROM t_customer t
@@ -44,125 +45,217 @@ SELECT * FROM emp t WHERE t.deptNo = 103 ORDER BY t.id DESC;
 SELECT * FROM emp t WHERE t.deptNo = 104 ORDER BY t.id DESC;
 SELECT * FROM emp t WHERE t.deptNo = 105 ORDER BY t.id DESC;
 
-SELECT * FROM emp t WHERE t.mgr = (SELECT t.empNo FROM emp t WHERE t.ename= 'æ›¹æ“');
-SELECT * FROM emp t WHERE t.mgr = (SELECT t.empNo FROM emp t WHERE t.ename= 'åˆ˜å¤‡');
-SELECT * FROM emp t WHERE t.mgr = (SELECT t.empNo FROM emp t WHERE t.ename= 'å­™æƒ');
+SELECT * FROM emp t WHERE t.mgr = (SELECT t.empNo FROM emp t WHERE t.ename= '²Ü²Ù');
+SELECT * FROM emp t WHERE t.mgr = (SELECT t.empNo FROM emp t WHERE t.ename= 'Áõ±¸');
+SELECT * FROM emp t WHERE t.mgr = (SELECT t.empNo FROM emp t WHERE t.ename= 'ËïÈ¨');
 
 --
 DELETE FROM dept;
 DELETE FROM emp;
  
--- æ’å…¥éƒ¨é—¨æ•°æ®
-INSERT INTO dept(id,deptNo,dname,loc) VALUES(1,101,'é”€å”®éƒ¨','å¹¿å·ž');
-INSERT INTO dept(id,deptNo,dname,loc) VALUES(2,102,'åŠžå…¬å®¤','å¹¿å·ž');
-INSERT INTO dept(id,deptNo,dname,loc) VALUES(3,103,'å¼€å‘éƒ¨','å¹¿å·ž');
-INSERT INTO dept(id,deptNo,dname,loc) VALUES(4,104,'ç»´æŠ¤éƒ¨','å¹¿å·ž');
-INSERT INTO dept(id,deptNo,dname,loc) VALUES(5,105,'äººäº‹éƒ¨','å¹¿å·ž');
+-- ²åÈë²¿ÃÅÊý¾Ý
+INSERT INTO dept(id,deptNo,dname,loc) VALUES(1,101,'ÏúÊÛ²¿','¹ãÖÝ');
+INSERT INTO dept(id,deptNo,dname,loc) VALUES(2,102,'°ì¹«ÊÒ','¹ãÖÝ');
+INSERT INTO dept(id,deptNo,dname,loc) VALUES(3,103,'¿ª·¢²¿','¹ãÖÝ');
+INSERT INTO dept(id,deptNo,dname,loc) VALUES(4,104,'Î¬»¤²¿','¹ãÖÝ');
+INSERT INTO dept(id,deptNo,dname,loc) VALUES(5,105,'ÈËÊÂ²¿','¹ãÖÝ');
 
--- æ’å…¥Manageræ•°æ®
-INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(1,1001,'åˆ˜å¤‡','2011-08-01','Manager',DEFAULT,10000,3000,104);
-INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(2,1002,'å­™æƒ','2008-08-01','Manager',DEFAULT,30000,6000,103);
-INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(3,1003,'æ›¹æ“','2001-08-01','Manager',DEFAULT,100000,15000,105);
+-- ²åÈëManagerÊý¾Ý
+INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(1,1001,'Áõ±¸','2011-08-01','Manager',DEFAULT,10000,3000,104);
+INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(2,1002,'ËïÈ¨','2008-08-01','Manager',DEFAULT,30000,6000,103);
+INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(3,1003,'²Ü²Ù','2001-08-01','Manager',DEFAULT,100000,15000,105);
 
--- æ’å…¥Employeeæ•°æ®
-INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(100,100101,'å…³ç¾½','2011-08-01','Employee',1001,8000,2800,104);
-INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(102,100102,'å¼ é£ž','2011-08-01','Employee',1001,7000,2700,104);
-INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(103,100103,'è¯¸è‘›äº®','2013-08-01','Employee',1001,9000,2900,104);
+-- ²åÈëEmployeeÊý¾Ý
+INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(100,100101,'¹ØÓð','2011-08-01','Employee',1001,8000,2800,104);
+INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(102,100102,'ÕÅ·É','2011-08-01','Employee',1001,7000,2700,104);
+INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(103,100103,'Öî¸ðÁÁ','2013-08-01','Employee',1001,9000,2900,104);
 
-INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(104,100201,'å‘¨ç‘œ','2011-08-01','Employee',1002,18000,12800,103);
-INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(105,100202,'é²è‚ƒ','2011-08-01','Employee',1002,17000,12700,103);
-INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(106,100203,'å¼ æ˜­','2013-08-01','Employee',1002,19000,12900,103);
+INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(104,100201,'ÖÜè¤','2011-08-01','Employee',1002,18000,12800,103);
+INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(105,100202,'Â³Ëà','2011-08-01','Employee',1002,17000,12700,103);
+INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(106,100203,'ÕÅÕÑ','2013-08-01','Employee',1002,19000,12900,103);
 
-INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(107,100301,'éƒ­å˜‰','2011-08-01','Employee',1003,28000,22800,105);
-INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(108,100302,'å…¸éŸ¦','2011-08-01','Employee',1003,27000,22700,105);
-INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(109,100303,'è€å½§','2013-08-01','Employee',1003,29000,22900,105);
+INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(107,100301,'¹ù¼Î','2011-08-01','Employee',1003,28000,22800,105);
+INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(108,100302,'µäÎ¤','2011-08-01','Employee',1003,27000,22700,105);
+INSERT INTO emp(id,empNo,ename,hiredate,job,mgr,sal,comm,deptNo) VALUES(109,100303,'Ü÷ª','2013-08-01','Employee',1003,29000,22900,105);
 
-
--- è®¡ç®—å‘˜å·¥çš„åå­—ã€æœˆè–ªå’Œå¹´è–ªï¼Ÿ
-SELECT t.ename å§“å,t.sal æœˆè–ª,t.sal*12 å¹´è–ª FROM emp t 
-
--- æ’å…¥empnoä¸º1213ï¼Œåç§°ä¸º'å•å¸ƒ'ï¼Œå…¶ä½™å­—æ®µä¸ºnull
-INSERT INTO emp(id,empNo,ename) VALUES('1111',1213,'å•å¸ƒ'); 
-SELECT * FROM emp t WHERE t.ename = 'å•å¸ƒ'
-
--- æŸ¥è¯¢empè¡¨å‘˜å·¥å§“åå’ŒèŒä½ï¼Œå¦‚æžœæ²¡æœ‰èŒä½ï¼Œæ˜¾ç¤º'no position' 
-SELECT t.ename AS 'å§“å',IFNULL(t.job,'no position') 'èŒä½' FROM emp t
-
-SELECT * FROM emp t WHERE t.job IS NULL
-
--- æŸ¥è¯¢empè¡¨å‘˜å·¥å§“åå’Œå…¥èŒæ—¶é—´ï¼Œå¦‚æžœæ²¡æœ‰å…¥èŒæ—¶é—´ï¼Œæ˜¾ç¤ºä¸€ä¸ªé»˜è®¤çš„æ—¶é—´
-SELECT t.ename,IFNULL(t.hiredate,'2011-01-01') FROM emp t
-
--- å°†empè¡¨å¤åˆ¶åˆ°emp_xxx
-CREATE TABLE emp_xxx AS SELECT * FROM emp;
-SELECT * FROM emp_xxx;
-
--- æœºæž„ä¸­æœ‰å¤šå°‘ç§èŒä½
-SELECT DISTINCT t.job FROM emp t WHERE t.job IS NOT NULL;
-
--- å‘˜å·¥åˆ†åˆ«åœ¨é‚£äº›éƒ¨é—¨ 
-SELECT DISTINCT d.dname éƒ¨é—¨ FROM emp t,dept d WHERE t.deptNo = d.deptNo
-SELECT DISTINCT d.dname éƒ¨é—¨ FROM emp t LEFT JOIN dept d ON t.deptNo = d.deptNo WHERE t.deptNo IS NOT NULL
-
--- æŸ¥è¯¢æ¯ä¸ªéƒ¨é—¨ä¸é‡å¤çš„èŒä½
-SELECT d.dname,t.job FROM dept d LEFT JOIN emp t ON d.deptNo = t.deptNo WHERE t.deptNo IS NOT NULL
-GROUP BY d.dname
-
--- è–ªæ°´é«˜äºŽ10000å…ƒçš„å‘˜å·¥æ•°æ®
-SELECT * FROM emp t WHERE t.sal > 10000
-SELECT * FROM emp t WHERE t.sal < 10000
-
--- èŒä½æ˜¯employeeçš„å‘˜å·¥æ•°æ®
-SELECT * FROM emp t WHERE t.job = 'employee'
-SELECT * FROM emp t WHERE t.job = 'Employee'
-
--- ä½¿ç”¨lower()ã€upper()å‡½æ•°
-SELECT LOWER(t.job) FROM emp t;
-SELECT UPPER(t.job) FROM emp t;
-
--- ä½¿ç”¨ between ... and å…³é”®å­—æŸ¥è¯¢
--- 1)è–ªæ°´å¤§äºŽ50000å¹¶ä¸”å°äºŽ100000çš„å‘˜å·¥æ•°æ®
-SELECT * FROM emp t WHERE t.sal BETWEEN 50000 AND 100000
--- 2)å…¥èŒæ—¶é—´åœ¨2011å¹´çš„å‘˜å·¥
-SELECT * FROM emp t WHERE t.hiredate BETWEEN '2011-01-01' AND '2011-12-31'
-
--- ä½¿ç”¨in(åˆ—è¡¨)
-SELECT * FROM emp t WHERE t.job IN('Employee','Manager');
-
--- æ¨¡ç³ŠåŒ¹é… like %
-SELECT * FROM emp t WHERE t.ename LIKE '%å¼ %'
--- 1)åˆ—å‡ºèŒä½ä¸­åŒ…å«saleså­—ç¬¦çš„å‘˜å·¥æ•°æ®
-SELECT * FROM emp t WHERE t.job LIKE '%sales%'
--- 2)åˆ—å‡ºèŒä½ä¸­ç¬¬äºŒä¸ªå­—ç¬¦æ˜¯açš„å‘˜å·¥æ•°æ®
-SELECT * FROM emp t WHERE t.job LIKE '_a%'
--- 3)æŸ¥è¯¢æ•°æ®åº“ä¸­æœ‰å¤šå°‘ä¸ªåå­—åŒ…å«'emp'çš„è¡¨
-SHOW TABLES
-
--- 4)æŸ¥è¯¢æ•°æ®åº“ä¸­æœ‰å¤šå°‘ä¸ªåå­—ä»¥'S_'å¼€å£çš„è¡¨
-
--- is null ,é‚£äº›å‘˜å·¥æ²¡æœ‰å¥–é‡‘
-SELECT * FROM emp t WHERE t.comm IS NULL
--- is not null é‚£äº›å‘˜å·¥æœ‰å¥–é‡‘
-SELECT * FROM emp t WHERE t.comm IS NOT NULL
--- not between ... and ... è–ªæ°´ä¸åœ¨ 10000 è‡³ 30000 çš„å‘˜å·¥
-SELECT * FROM emp t WHERE t.sal NOT BETWEEN 10000 AND 30000
--- not in(list) ä¸æ˜¯éƒ¨é—¨103å’Œ105çš„å‘˜å·¥
-SELECT * FROM emp t WHERE t.deptNo NOT IN(103,105)
-
--- SQLè¯­è¨€çš„åˆ†ç±»
--- 1) æ•°æ®åº“å®šä¹‰è¯­è¨€ï¼ˆDDLï¼‰ï¼Œå¯¹æ•°æ®ç»“æž„èµ·ä½œç”¨
+-- SQLÓïÑÔµÄ·ÖÀà
+-- 1) Êý¾Ý¿â¶¨ÒåÓïÑÔ£¨DDL£©£¬¶ÔÊý¾Ý½á¹¹Æð×÷ÓÃ
 CREATE
 DROP
 ALTER
 TRUNCATE
--- 2) æ•°æ®åº“æ“çºµè¯­è¨€ï¼ˆDCLï¼‰
+-- 2) Êý¾Ý¿â²Ù×ÝÓïÑÔ£¨DCL£©
 INSERT
 UPDATE
 DELETE
--- 3) æ•°æ®åº“æŸ¥è¯¢è¯­è¨€ï¼ˆDQLï¼‰
+-- 3) Êý¾Ý¿â²éÑ¯ÓïÑÔ£¨DQL£©
 SELECT
--- 4) äº‹ç‰©æŽ§åˆ¶è¯­å¥ï¼ˆDMLï¼‰
+-- 4) ÊÂÎï¿ØÖÆÓï¾ä£¨DML£©
 COMMIT
 ROLLBACK
 SAVEPOINT
--- 1)
+
+
+-- ¼ÆËãÔ±¹¤µÄÃû×Ö¡¢ÔÂÐ½ºÍÄêÐ½£¿
+SELECT t.ename ÐÕÃû,t.sal ÔÂÐ½,t.sal*12 ÄêÐ½ FROM emp t 
+
+-- ²åÈëempnoÎª1213£¬Ãû³ÆÎª'ÂÀ²¼'£¬ÆäÓà×Ö¶ÎÎªnull
+INSERT INTO emp(id,empNo,ename) VALUES('1111',1213,'ÂÀ²¼'); 
+SELECT * FROM emp t WHERE t.ename = 'ÂÀ²¼'
+
+-- ²éÑ¯emp±íÔ±¹¤ÐÕÃûºÍÖ°Î»£¬Èç¹ûÃ»ÓÐÖ°Î»£¬ÏÔÊ¾'no position' 
+SELECT t.ename AS 'ÐÕÃû',IFNULL(t.job,'no position') 'Ö°Î»' FROM emp t
+
+SELECT * FROM emp t WHERE t.job IS NULL
+
+-- ²éÑ¯emp±íÔ±¹¤ÐÕÃûºÍÈëÖ°Ê±¼ä£¬Èç¹ûÃ»ÓÐÈëÖ°Ê±¼ä£¬ÏÔÊ¾Ò»¸öÄ¬ÈÏµÄÊ±¼ä
+SELECT t.ename,IFNULL(t.hiredate,'2011-01-01') FROM emp t
+
+-- ½«emp±í¸´ÖÆµ½emp_xxx
+CREATE TABLE emp_xxx AS SELECT * FROM emp;
+SELECT * FROM emp_xxx;
+
+-- »ú¹¹ÖÐÓÐ¶àÉÙÖÖÖ°Î»
+SELECT DISTINCT t.job FROM emp t WHERE t.job IS NOT NULL;
+
+-- Ô±¹¤·Ö±ðÔÚÄÇÐ©²¿ÃÅ 
+SELECT DISTINCT d.dname ²¿ÃÅ FROM emp t,dept d WHERE t.deptNo = d.deptNo
+SELECT DISTINCT d.dname ²¿ÃÅ FROM emp t LEFT JOIN dept d ON t.deptNo = d.deptNo WHERE t.deptNo IS NOT NULL
+
+-- ²éÑ¯Ã¿¸ö²¿ÃÅ²»ÖØ¸´µÄÖ°Î»
+SELECT d.dname,t.job FROM dept d LEFT JOIN emp t ON d.deptNo = t.deptNo WHERE t.deptNo IS NOT NULL
+GROUP BY d.dname
+
+-- Ð½Ë®¸ßÓÚ10000ÔªµÄÔ±¹¤Êý¾Ý
+SELECT * FROM emp t WHERE t.sal > 10000
+SELECT * FROM emp t WHERE t.sal < 10000
+
+-- Ö°Î»ÊÇemployeeµÄÔ±¹¤Êý¾Ý
+SELECT * FROM emp t WHERE t.job = 'employee'
+SELECT * FROM emp t WHERE t.job = 'Employee'
+
+-- Ê¹ÓÃlower()¡¢upper()º¯Êý
+SELECT LOWER(t.job) FROM emp t;
+SELECT UPPER(t.job) FROM emp t;
+
+-- Ê¹ÓÃ between ... and ¹Ø¼ü×Ö²éÑ¯
+-- 1)Ð½Ë®´óÓÚ50000²¢ÇÒÐ¡ÓÚ100000µÄÔ±¹¤Êý¾Ý
+SELECT * FROM emp t WHERE t.sal BETWEEN 50000 AND 100000
+-- 2)ÈëÖ°Ê±¼äÔÚ2011ÄêµÄÔ±¹¤
+SELECT * FROM emp t WHERE t.hiredate BETWEEN '2011-01-01' AND '2011-12-31'
+
+-- Ê¹ÓÃin(ÁÐ±í)
+SELECT * FROM emp t WHERE t.job IN('Employee','Manager');
+
+-- Ä£ºýÆ¥Åä like %
+SELECT * FROM emp t WHERE t.ename LIKE '%ÕÅ%'
+-- 1)ÁÐ³öÖ°Î»ÖÐ°üº¬sales×Ö·ûµÄÔ±¹¤Êý¾Ý
+SELECT * FROM emp t WHERE t.job LIKE '%sales%'
+-- 2)ÁÐ³öÖ°Î»ÖÐµÚ¶þ¸ö×Ö·ûÊÇaµÄÔ±¹¤Êý¾Ý
+SELECT * FROM emp t WHERE t.job LIKE '_a%'
+-- 3)²éÑ¯Êý¾Ý¿âÖÐÓÐ¶àÉÙ¸öÃû×Ö°üº¬'emp'µÄ±í
+SHOW TABLES
+
+-- SELECT * FROM emp t WHERE t.job LIKE '\_%' escape '\';
+
+-- 4)²éÑ¯Êý¾Ý¿âÖÐÓÐ¶àÉÙ¸öÃû×ÖÒÔ'S_'¿ª¿ÚµÄ±í
+
+-- is null ,ÄÇÐ©Ô±¹¤Ã»ÓÐ½±½ð
+SELECT * FROM emp t WHERE t.comm IS NULL
+-- is not null ÄÇÐ©Ô±¹¤ÓÐ½±½ð
+SELECT * FROM emp t WHERE t.comm IS NOT NULL
+-- not between ... and ... Ð½Ë®²»ÔÚ 10000 ÖÁ 30000 µÄÔ±¹¤
+SELECT * FROM emp t WHERE t.sal NOT BETWEEN 10000 AND 30000
+-- not in(list) ²»ÊÇ²¿ÃÅ103ºÍ105µÄÔ±¹¤
+SELECT * FROM emp t WHERE t.deptNo NOT IN(103,105)
+
+
+//1 ¼ÆËã½ð¶îµÄËÄÉáÎåÈë 
+//round()
+//trunc()
+
+//2 ¼ÆËã½ð¶î,Ä©Î²²»×öËÄÉáÎåÈë
+
+//3 ÈÕÆÚº¯Êý sysdate »ñÈ¡ÏµÍ³µ±Ç°Ê±¼ä
+
+//4 Ðé±í dual
+
+//5 ¼ÆËãÔ±¹¤ÈëÖ°¶àÉÙÌì£¿
+
+//6 ¼ÆËãÔ±¹¤ÈëÖ°¶àÉÙ¸öÔÂ£¿´øÓÐÐ¡Êý±íÊ¾
+
+//7 ¼ÆËãÔ±¹¤ÈëÖ°¶àÉÙ¸öÔÂ£¿ÕûÊý±íÊ¾
+
+//8 ¼ÆËã12¸öÔÂÖ®Ç°µÄÊ±¼äµã
+
+//9 ¼ÆËã±¾ÔÂ×îºóÒ»Ìì
+
+//10 °ÑÊ±¼äÊý¾Ý°´Ö¸¶¨¸ñÊ½Êä³ö ³¢ÊÔÈýÖÖÒÔÉÏ¸ñÊ½(ÁË½â³£ÓÃÈÕÆÚ¸ñÊ½)
+// ÁË½âÇ§Äê³æÎÊÌâ
+
+//11 ²åÈëÒ»ÌõÊý¾Ý£¬±àºÅÎª1012,ÐÕÃûamy,ÈëÖ°Ê±¼äÎªµ±Ç°Ê±¼ä
+
+//12 ²åÈëÒ»ÌõÊý¾Ý£¬±àºÅÎª1012,ÐÕÃûamy,ÈëÖ°Ê±¼äÎª2011-01-02
+
+//13 °´Ö¸¶¨Ê±¼ä¸ñÊ½²åÈëempÊý¾Ý
+
+//14 °´Ö¸¶¨¸ñÊ½ÏÔÊ¾Ô±¹¤ÐÕÃûºÍÈëÖ°Ê±¼ä£¬ÏÔÊ¾¸ñÊ½£º amy 2011-01-01
+
+//15 coalesce() ¼ÆËãÔ±¹¤µÄÄêÖÕ½± 
+
+//16 caseÓï¾äÊÇÊý¾ÝÖÐ·ÖÖ§Óï¾ä ¸ù¾ÝÔ±¹¤µÄÖ°Î»£¬¼ÆËã¼ÓÐ½ºóµÄÐ½Ë®Êý¾Ý
+
+//17 decode() ¸ù¾ÝÔ±¹¤µÄÖ°Î»£¬¼ÆËã¼ÓÐ½ºóµÄÐ½Ë®Êý¾Ý
+
+//18 Ð½Ë®ÓÉµÍµ½¸ßÅÅÐò(ÉýÐòÅÅÁÐ)
+
+//19 Ð½Ë®ÓÉ¸ßµ½µÍÅÅÐò(½µÐòÅÅÁÐ)
+
+//20 °´ÈëÖ°Ê±¼äÅÅÐò£¬ÈëÖ°Ê±¼äÔ½ÔçÅÅÔÚÇ°Ãæ
+
+//21 ÁË½âselectÓï¾äÖ´ÐÐË³Ðò
+
+//22 Ô±¹¤±íÖÐÓÐ¶àÉÙÌõ¼ÇÂ¼
+
+//23 ²éÑ¯µ±Ç°ÕËºÅÏÂÓÐ¶àÉÙ¸ö±í
+
+//24 µ±Ç°ÕËºÅÏÂÓÐ¶àÉÙ¸öÃû×Ö°üº¬empµÄ±í
+
+//25 ÈëÖ°Ê±¼ä²»ÊÇnullµÄÊý¾Ý×ÜÊý
+
+//26 sqlplusÃüÁî
+show userºÍ select user from dual;
+
+//25×éº¯Êý count() avg() sum() max()  min() () 
+
+//1) ¼ÆËãÔ±¹¤µÄÐ½Ë®×ÜºÍÊÇ¶àÉÙ
+
+//2) ¼ÆËãÔ±¹¤µÄÈËÊý×ÜºÍ¡¢Ð½Ë®×ÜºÍ¡¢Æ½¾ùÐ½Ë®ÊÇ¶àÉÙ
+
+//3) ¼ÆËãÔ±¹¤µÄ×î¸ßÐ½Ë®ºÍ×îµÍÐ½Ë®
+
+//4) ¼ÆËã×îÔçºÍ×îÍíµÄÔ±¹¤ÈëÖ°Ê±¼ä
+
+//5)  ±È½Ï×éº¯ÊýºÍµ¥ÐÐº¯Êý round() to_date() to_char() coalesce()
+
+// ·Ö×é²éÑ¯ group by
+//1) °´²¿ÃÅ¼ÆËãÃ¿¸ö²¿ÃÅµÄ×î¸ßºÍ×îµÍÐ½Ë®·Ö±ðÊÇ¶àÉÙ
+ 
+//2) ¼ÆËãÃ¿¸ö²¿ÃÅµÄ Ð½Ë®×ÜºÍ ºÍ Æ½¾ùÐ½Ë®
+
+//3) Ã¿¸ö²¿ÃÅµÄÍ³¼ÆÐÅÏ¢
+
+//4) °´Ö°Î»·Ö×é£¬Ã¿¸öÖ°Î»µÄ×î¸ß£¬×îµÍÐ½Ë®ºÍÈËÊý
+
+//having ×Ó¾ä
+//1) Æ½¾ùÐ½Ë®´óÓÚ5000 ÔªµÄ²¿ÃÅÊý¾Ý£¬Ã»ÓÐ²¿ÃÅµÄ²»ËãÔÚÄÚ
+
+//2) Ð½Ë®×ÜºÍ´óÓÚ20000ÔªµÄ²¿ÃÅÊý¾Ý
+
+//3) ÄÇÐ©Ö°Î»µÄÈËÊý³¬¹ý2¸öÈË
+
+// ×Ó²éÑ¯
+//1) ×îµÍÐ½Ë®µÄÊÇË­
+
+//2) ×î¸ßÐ½Ë®µÄÊÇË­
+
