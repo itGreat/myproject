@@ -193,63 +193,146 @@ select t.ename,to_char(t.hiredate,'yyyy-mm-dd'),months_between(sysdate,t.hiredat
 select t.ename,to_char(t.hiredate,'yyyy-MM-dd'),trunc(months_between(sysdate,t.hiredate),0) 入职月数 from emp t;
 
 -- 8 计算12个月之前的时间点
+select to_char(add_months(sysdate,-12),'yyyy-MM-dd') from dual;
+select to_char(add_months(sysdate,12),'yyyy-MM-dd') from dual;
 
 -- 9 计算本月最后一天
+select to_char(last_day(sysdate),'yyyy-MM-dd') from dual;
 
 -- 10 把时间数据按指定格式输出 尝试三种以上格式(了解常用日期格式)
---  了解千年虫问题
+-- yyyy年MM月dd日 星期x
+select to_char(sysdate,'yyyy') || '年' || to_char(sysdate,'MM') || '月' || to_char(sysdate,'dd') from dual;
+SELECT TO_CHAR(SYSDATE, 'YYYY"年"MM"月"DD"日" day') 具体日期信息 FROM dual;
+-- yyyy-MM-dd HH:mm
+select to_char(sysdate,'yyyy-MM-dd HH:mm') 当前日期和时间 from dual;
+
+--了解千年虫问题
+早些时候的计算机系统存储年只用了两位
 
 -- 11 插入一条数据，编号为1012,姓名amy,入职时间为当前时间
+insert into emp(empno,ename,hiredate) values ('1012','amy',sysdate);
 
--- 12 插入一条数据，编号为1012,姓名amy,入职时间为2011-01-02
-
--- 13 按指定时间格式插入emp数据
+-- 12 插入一条数据，编号为1013,姓名amy2,入职时间为2011-01-02
+insert into emp(empno,ename,hiredate) values ('1013','amy2',to_date('2011-01-02','yyyy-MM-dd'));
+select to_date('2011-01-02','yyyy-MM-dd') from dual;
+select * from emp t;
+-- 13 按指定时间格式插入emp数据 salgrade
 
 -- 14 按指定格式显示员工姓名和入职时间，显示格式： amy 2011-01-01
+select t.ename 姓名,to_char(t.hiredate,'yyyy-MM-dd') 时间 from emp t;
 
--- 15 coalesce() 计算员工的年终奖 
+-- 15 coalesce() 计算员工的年终奖
+select * from bonus t
+select t.ename, t.sal  from emp t
+select t.ename,coalesce(t.sal,100) from emp t
 
 -- 16 case语句是数据中分支语句 根据员工的职位，计算加薪后的薪水数据
+select t.ename,t.job,t.sal from emp t;
+select t.ename,case t.job 
+       when 'CLERK' then 300 
+       when 'SALESMAN' then 300
+       when 'PRESIDENT' then 1000
+       when 'MANAGER' then 500
+       when 'ANALYST' then 600 
+        else 100 end 
+      from emp t;
+      
+ select t.ename,
+   case t.job 
+       when 'CLERK' then t.sal * 0.3 
+       when 'SALESMAN' then t.sal *  0.3
+       when 'PRESIDENT' then t.sal * 0.3
+       when 'MANAGER' then t.sal * 0.3
+       when 'ANALYST' then t.sal * 0.3 
+       else 100 
+   end 
+from emp t;
 
 -- 17 decode() 根据员工的职位，计算加薪后的薪水数据
+select t.ename,t.sal,t.job,
+       decode(t.job,'CLERK',t.sal * 1.3,
+                    'SALESMAN',t.sal * 1.3,
+                    'PRESIDENT',t.sal * 1.3,
+                    'MANAGER',t.sal * 1.3,
+                    'ANALYST',t.sal * 1.3,
+       t.sal) new_sal
+from emp t;      
 
 -- 18 薪水由低到高排序(升序排列)
+select t.ename,t.sal from emp t order by t.sal asc
 
 -- 19 薪水由高到低排序(降序排列)
+select t.ename,t.sal from emp t order by t.sal desc
 
--- 20 按入职时间排序，入职时间越早排在前面
+-- 20 按入职时间排序，入职时间越早排在前面 
+select t.ename,to_char(t.hiredate,'yyyy-MM-dd') from emp t order by t.hiredate asc
 
 -- 21 了解select语句执行顺序
+如：select t.ename,t.sal from emp t where t.deptno = 30 order by t.sal asc
+1)from 表 select t.* from emp t
+2)查询 列  select t.ename,t.sal from emp t;
+3)where条件 select t.ename,t.sal from emp t where t.deptno = 30 
+4)order by子句 select t.ename,t.sal from emp t where t.deptno = 30 order by t.sal asc
 
 -- 22 员工表中有多少条记录
+select count(*) from emp;
+select count(1) from emp;
 
 -- 23 查询当前账号下有多少个表
+select count(*) from user_tables;
 
 -- 24 当前账号下有多少个名字包含emp的表
+select * from user_tables t where t.TABLE_NAME like '%EMP%'
 
 -- 25 入职时间不是null的数据总数
+select count(*) from emp t where t.hiredate is not null;
+select count(t.hiredate) from emp t; -- count(t.hiredate) 忽略空值
 
--- 26 sqlplus命令
-show user和 select user from dual;
+-- 26 查看当前登陆用户
+-- sqlplus命令 
+show user
+-- sql语句
+select user from dual;
 
 -- 25组函数 count() avg() sum() max()  min() () 
 
 -- 1) 计算员工的薪水总和是多少
-
+select sum(t.sal) 员工薪水总和 from emp t;
+select * from emp t where t.sal is null
 -- 2) 计算员工的人数总和、薪水总和、平均薪水是多少
-
--- 3) 计算员工的最高薪水和最低薪水
+select count(t.empno) 人数总和,sum(t.sal) 薪水总和,trunc(avg(nvl(t.sal,0)),1)  平均薪水 from emp t;
+注意：
+1) 组函数 count()/max()/min()/sum()/avg() 会忽略空值计算
+2) avg/sum 只能用于数字技术
+3) max/min 用于任何数据类型
+-- 3) 计算员工的最高薪水和最低薪水 ?
+select max(t.sal),min(t.sal) from emp t;
 
 -- 4) 计算最早和最晚的员工入职时间
+select to_char(min(t.hiredate),'yyyy-mm-dd') 最早入职,to_char(max(t.hiredate),'yyyy-mm-dd') 最晚入职 from emp t;
 
 -- 5)  比较组函数和单行函数 round() to_date() to_char() coalesce()
 
 --  分组查询 group by
 -- 1) 按部门计算每个部门的最高和最低薪水分别是多少
+select  t.deptno,max(t.sal),min(t.sal) from emp t where t.deptno is not null
+group by t.deptno;
+       
+select * from dept 
  
 -- 2) 计算每个部门的 薪水总和 和 平均薪水
+select sum(t.sal),avg(nvl(t.sal,0)) from emp t
+group by t.deptno;
 
--- 3) 每个部门的统计信息
+-- 3) 每个部门的统计信息 统计格式 deptno max_s min_s sum_s avg_s emp_num
+select t.deptno deptno,
+       max(t.sal) max_s,
+       min(t.sal) min_s,
+       sum(t.sal) sum_s,
+      trunc(avg(nvl(t.sal,0)),1) avg_s,
+       count(t.empno) emp_num
+ from emp t where t.deptno is not null
+ group by t.deptno;
 
 -- 4) 按职位分组，每个职位的最高，最低薪水和人数
 
