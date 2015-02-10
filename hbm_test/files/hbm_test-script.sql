@@ -95,6 +95,7 @@ COMMIT
 ROLLBACK
 SAVEPOINT
 
+/***** day01 *****/
 
 -- ¼ÆËãÔ±¹¤µÄÃû×Ö¡¢ÔÂÐ½ºÍÄêÐ½£¿
 SELECT t.ename ÐÕÃû,t.sal ÔÂÐ½,t.sal*12 ÄêÐ½ FROM emp t 
@@ -170,7 +171,8 @@ SELECT * FROM emp t WHERE t.sal NOT BETWEEN 10000 AND 30000
 SELECT * FROM emp t WHERE t.deptNo NOT IN(103,105)
 
 
--- 
+/***** day02 *****/
+
 -- 1 ¼ÆËã½ð¶îµÄËÄÉáÎåÈë  round()
 SELECT round(15.79) "Truncate" FROM DUAL; -- 16
 -- 2 ¼ÆËã½ð¶î,Ä©Î²²»×öËÄÉáÎåÈë trunc()
@@ -306,7 +308,11 @@ select count(t.empno) ÈËÊý×ÜºÍ,sum(t.sal) Ð½Ë®×ÜºÍ,trunc(avg(nvl(t.sal,0)),1)  Æ
 2) avg/sum Ö»ÄÜÓÃÓÚÊý×Ö¼¼Êõ
 3) max/min ÓÃÓÚÈÎºÎÊý¾ÝÀàÐÍ
 -- 3) ¼ÆËãÔ±¹¤µÄ×î¸ßÐ½Ë®ºÍ×îµÍÐ½Ë® ?
-select max(t.sal),min(t.sal) from emp t;
+select max(t.sal),min(t.sal) from emp t
+group by max(t.sal),min(t.sal)
+
+select t.ename,t.sal from emp t where t.sal = (select max(sal) from emp)
+select t.ename,t.sal from emp t where t.sal in (select max(sal) from emp union select min(sal) from emp)
 
 -- 4) ¼ÆËã×îÔçºÍ×îÍíµÄÔ±¹¤ÈëÖ°Ê±¼ä
 select to_char(min(t.hiredate),'yyyy-mm-dd') ×îÔçÈëÖ°,to_char(max(t.hiredate),'yyyy-mm-dd') ×îÍíÈëÖ° from emp t;
@@ -335,16 +341,113 @@ select t.deptno deptno,
  group by t.deptno;
 
 -- 4) °´Ö°Î»·Ö×é£¬Ã¿¸öÖ°Î»µÄ×î¸ß£¬×îµÍÐ½Ë®ºÍÈËÊý
-
+select max(d.dname) ²¿ÃÅ,max(t.sal) ²¿ÃÅ×î¸ßÐ½,min(t.sal) ²¿ÃÅ×îµÍÐ½,count(*) ²¿ÃÅÈËÊý from emp t,dept d  
+where t.deptno = d.deptno
+group by t.deptno
+--  and t.deptno is not null 
 -- having ×Ó¾ä
 -- 1) Æ½¾ùÐ½Ë®´óÓÚ5000 ÔªµÄ²¿ÃÅÊý¾Ý£¬Ã»ÓÐ²¿ÃÅµÄ²»ËãÔÚÄÚ
+select d.dname ²¿ÃÅ,trunc(avg(nvl(t.sal,0)),1) ²¿ÃÅÆ½¾ùÐ½Ë®  from emp t,dept d where t.deptno = d.deptno
+group by d.dname
+having avg(t.sal) > 2000
 
 -- 2) Ð½Ë®×ÜºÍ´óÓÚ20000ÔªµÄ²¿ÃÅÊý¾Ý
+select d.dname ²¿ÃÅ,sum(t.sal) ²¿ÃÅÐ½Ë®×ÜºÍ from emp t,dept d where t.deptno = d.deptno
+group by d.dname
+having sum(t.sal) > 10000
 
 -- 3) ÄÇÐ©Ö°Î»µÄÈËÊý³¬¹ý2¸öÈË
+select t.job Ö°Î»,count(*) ÈËÊý from emp t where t.job is not null
+group by t.job
+having count(*) > 2
 
 --  ×Ó²éÑ¯
 -- 1) ×îµÍÐ½Ë®µÄÊÇË­
+select t.ename,t.sal from emp t where t.sal = (select min(t.sal) from emp t)
+select min(t.sal) from emp t
 
 -- 2) ×î¸ßÐ½Ë®µÄÊÇË­
+select initcap(lower(t.ename)),t.sal from emp t where t.sal = (select max(t.sal) from emp t)
 
+
+
+/***** day03 *****/
+
+-- 1) upper Ó¢ÎÄ×ÖÄ¸×ªÎª´óÐ´
+select upper(t.ename) from emp t;
+-- 2) lower Ó¢ÎÄ×ÖÄ¸×ªÎªÐ¡Ð´
+select lower(t.ename) from emp t;
+-- 3) initcap Ê××ÖÄ¸×ªÎª´óÐ´
+select initcap(t.ename) from emp t;
+-- 4) length È¡³¤¶È
+select t.ename ÐÕÃû,length(t.ename) ÐÕÃû³¤¶È from emp t;
+-- 5) Ipad ×ó²¹¶¡
+select lpad(t.ename,10,'*') from emp t;
+-- 6) rpad ÓÒ²¹¶¡
+select rpad(t.ename,10,'#') from emp t;
+-- 7) replace ×Ö·ûÌæ»»
+select replace(t.ename,'G','g') from emp t;
+-- 8) trim È¥³ýÇ°ºóµÄ¿Õ¸ñ
+select trim(t.ename) from emp t;
+select * from emp t;
+-- 1 ½«ename×Ö¶ÎÉèÖÃÎª9³¤¶È£¬Èç¹û²»¹»×ó±ßÓÃ¡°*¡±ºÅ²¹Æë
+select lpad(t.ename,9,'*') from emp t;
+-- 2 ½«ename×Ö¶ÎÉèÖÃÎª9³¤¶È£¬Èç¹û²»¹»ÓÒ±ßÓÃ¡°#¡±ºÅ²¹Æë
+select rpad(t.ename,9,'#') from emp t;
+-- 3 Çó sal ¶Ô5000È¡Ä£
+select t.sal,mod(t.sal,5000) from emp t;
+-- 4 ÈÕÆÚº¯Êý months_between/and_months/last_day
+-- ²éÑ¯Á½¸öÈÕÆÚÏà²îÔÂÊý
+select round(months_between(sysdate,to_date('2000-01-01','yyyy-MM-dd'))) Ïà²îÔÂÊý from dual;
+
+-- ²éÑ¯12¸öÔÂºóµÄÈÕÆÚ
+select to_char(add_months(sysdate,12),'yyyy-MM-dd') ÈÕÆÚ from dual;
+-- ²éÑ¯12¸öÔÂÇ°ÈÕÆÚ£¬Ö»ÐèÒª°Ñ 12 ¸Ä³É -12
+
+--²éÑ¯±¾ÔÂ×îºóÒ»ÌìÈÕÆÚ
+select to_char(last_day(sysdate),'yyyy-MM-dd') ÈÕÆÚ from dual;
+--Èç¹ûÖ»ÐèÒª²éÑ¯¶àÉÙÈÕ(ºÅ)
+select to_char(last_day(sysdate),'dd') "ÈÕ(ºÅ)" from dual;
+
+-- 5 ½«amy µÄÈëÖ°ÈÕÆÚÌáÈ¡2¸öÔÂ
+-- 6 Õâ¸öÔÂµÄ×îºóÒ»ÌìÊÇ¶àÉÙºÅ
+-- 7 ×ª»»º¯Êý£ºto_char/to_date/to_number
+-- 8 ½«¡°$7,912,345.67¡±³ËÒÔ10£¬Êä³ö½á¹û
+-- 9 ½«7912345.67°´Ö¸¶¨¸ñÊ½¡°$9,999,999.99¡±Êä³ö
+-- 10 Í¨ÓÃº¯Êý nvl/coalesce/decode
+
+-- Ê¹ÓÃÆµÂÊ±È½Ï¸ßµÄº¯Êý
+1) µ¥ÐÐº¯Êý£ºupper/round/to_char/to_date/nvl
+2) ×éº¯Êý£ºcount/avg/sum/max/min
+
+-- 11 µ¥ÐÐ±È½ÏÔªËã·û > < >= <= <>
+-- 12 Ë­µÄÐ½Ë®±Èxxx¸ß
+1) ·Ö²½²éÑ¯
+2) ×Ó²éÑ¯
+-- 13 ÑÐ·¢²¿ÓÐÄÄÐ©Ö°Î»
+-- 14 All ²éÑ¯Ë­µÄÐ½Ë®±ÈËùÓÐ½ÐxxxµÄÐ½Ë®¶¼¸ß£¿
+-- 15 Any ÄÇÐ©ÈËµÄÐ½Ë®±ÈÈÎºÎÒ»¸ö½ÐxxxµÄÔ±¹¤¹¤×Ê¸ß
+-- 16 In Ë­ºÍxxxÍ¬²¿ÃÅ£¿ÁÐ³ö³ýÁËxxxÖ®ÍâµÄÔ±¹¤ÐÕÃû
+-- 17 Ë­ÊÇxxxµÄÏÂÊô£¿Èç¹ûÖ»ÓÐÒ»¸öxxxµÄÔ±¹¤£¬ÔòÎÞÎÊÌâ£¬Èç¹ûÓÐ¶à¸ö£¬ÐèÒªÓÃin
+µ¥ÐÐ±È½ÏÔËËã·ûºÍAll¡¢Any¡¢in
+×¢Òâ£ºÊ¹ÓÃ×Ó²éÑ¯Ê±£¬×¢Òâ·µ»Ø½á¹ûÊÇµ¥ÐÐ»¹ÊÇ¶àÐÐ
+
+-- 18 Ã¿¸ö²¿ÃÅÄÃ×î¸ßÐ½Ë®µÄÊÇË­£¿
+-- 19 ÄÇ¸ö²¿ÃÅµÄÈËÊý±È²¿ÃÅ±àÂëÎª30µÄÈËÊý¶à£¿
+-- 20 ÄÇ¸ö²¿ÃÅµÄÆ½¾ùÐ½Ë®±È²¿ÃÅ20µÄÆ½¾ùÐ½Ë®¸ß
+-- 21 ÁÐ³öÔ±¹¤Ãû×ÖºÍÖ°Î»£¬ÕâÐ©Ô±¹¤ËùÔÚ²¿ÃÅÆ½¾ùÐ½Ë®´óÓÚ2000ÔÆ
+-- 22 ÄÇÐ©Ô±¹¤µÄÐ½Ë®±È¹«Ë¾µÄÆ½¾ùÐ½Ë®µÍ£¿
+-- 23 ÄÇÐ©Ô±¹¤µÄÐ½Ë®±È±¾²¿ÃÅµÄÆ½¾ùÐ½Ë®µÍ£¿²»ÔÙºÍÕû¸ö²¿ÃÅµÄÆ½¾ùÐ½Ë®±È½Ï
+-- 24 ÄÇÐ©ÈËÊÇÆäËûÈËµÄ¾­Àí
+-- 25 ÄÇÐ©ÈË²»ÊÇ±ðÈËµÄ¾­Àí
+-- 26 ÄÇÐ©²¿ÃÅÃ»ÓÐÔ±¹¤
+-- 27 ºÏ¼¯ union ÑÝÊ¾
+-- 28 union all
+-- 29 ½»¼¯intersectÑÝÊ¾
+-- 30 ²î¼¯minus
+
+-- 31 ÁÐ³öÔ±¹¤µÄÐÕÃûºÍËùÔÚ²¿ÃÅµÄÃû×ÖºÍ³ÇÊÐ
+-- 32 ÁÐ³öÔ±¹¤µÄÐÕÃûºÍËûµÄÉÏË¾µÄÐÕÃû 
+-- 33 ÁÐ³öÔ±¹¤µÄÐÕÃûºÍËûËùÔÚ²¿ÃÅµÄÃû×Ö£¬°ÑÃ»ÓÐ²¿ÃÅµÄÔ±¹¤Ò²²é³öÀ´
+-- 34 ÄÇÐ©²¿ÃÅÃ»ÓÐÔ±¹¤£¿
+-- 35 È«Á¬½Ó
