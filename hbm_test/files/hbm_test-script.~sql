@@ -456,10 +456,6 @@ select t.ename,t.sal from emp t where t.sal > All(select t.sal from emp t where 
 注意：使用子查询时，注意返回结果是单行还是多行
 
 -- 18 每个部门拿最高薪水的是谁？
-select max(d.dname),max(t.sal) from dept d left join emp t on d.deptno = t.deptno
-group by d.deptno
-
-
 -- 19 那个部门的人数比部门编码为30的人数多？
 -- 20 那个部门的平均薪水比部门20的平均薪水高
 -- 21 列出员工名字和职位，这些员工所在部门平均薪水大于2000云
