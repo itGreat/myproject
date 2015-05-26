@@ -1,13 +1,21 @@
 package com.gc.act;
 
+import org.activiti.engine.ProcessEngineConfiguration;
+import org.junit.Test;
+
 /**
  * Hello world!
  *
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
+
+	@Test
+	public void init(){
+		//初始化表
+		ProcessEngineConfiguration cfg = ProcessEngineConfiguration.createProcessEngineConfigurationFromResourceDefault();
+		cfg.buildProcessEngine();
+		
+	}
+
 }
