@@ -39,6 +39,26 @@
   	<url-pattern>/business/customer_delete.do</url-pattern>
   </servlet-mapping>
   
+  
+  <servlet>
+      <servlet-name>CategoryServlet</servlet-name>
+      <servlet-class>com.gc.servlet.CategoryServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>CategoryServlet</servlet-name>
+      <url-pattern>/category.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+      <servlet-name>CategoryServletJson</servlet-name>
+      <servlet-class>com.gc.servlet.CategoryServletJson</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>CategoryServletJson</servlet-name>
+      <url-pattern>/categoryJson.do</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>

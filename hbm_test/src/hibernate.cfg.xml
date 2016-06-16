@@ -41,6 +41,12 @@
 		<!-- 员工和部门结构 -->
 		<mapping class="com.gc.entity.Emp"/>
 		<mapping class="com.gc.entity.Dept"/>
+		
+		<!--   -->
+		<mapping class="com.gc.entity.Person"/>
+		<mapping class="com.gc.entity.Address"/>
+		
+		<mapping class="com.gc.entity.Category"/>
 
 	</session-factory>
 </hibernate-configuration>

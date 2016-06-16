@@ -1,6 +1,34 @@
 USE hbm_test;
 show user;
 
+
+SELECT * FROM t_category;
+ SELECT  t.id  "id", t.parent_id  "pId",t.name "name" FROM t_category t ORDER BY t.parent_id ASC 
+SELECT t.id \"id\",REPLACE(t.parent_id,'null','') \"pId\",t.name \"name\" FROM t_category t ORDER BY t.parent_id ASC 
+
+
+[
+         	{id:1, pId:0, NAME:"jQuery", OPEN:TRUE},
+         	{id:101, pId:1, NAME:"jQuery UI Widget Demo", FILE:"http://sandbox.runjs.cn/show/zblr8lh9"},
+         	{id:102, pId:1, NAME:"jq_calc", FILE:"http://sandbox.runjs.cn/show/liqpsnxx"},
+         	{id:103, pId:1, NAME:"jq_selector", FILE:"http://sandbox.runjs.cn/show/zero4sb6"},
+         	
+         	{id:2, pId:0, NAME:"JavaScript", OPEN:FALSE},
+         	{id:201, pId:2, NAME:"jqapi-1.9", FILE:"http://www.css88.com/jqapi-1.9/old.html"},
+         	
+         	{id:3, pId:0, NAME:"CSS", OPEN:FALSE},
+         	{id:301, pId:3, NAME:"搜索框样式", FILE:"http://sandbox.runjs.cn/show/yeecjupy"},
+         		{id:302, pId:3, NAME:"表格框样式", FILE:"http://sandbox.runjs.cn/show/awl39tjt"},
+         		{id:303, pId:3, NAME:"按钮框样式", FILE:"http://sandbox.runjs.cn/show/lttovegn"},
+         	
+         ];
+         
+INSERT INTO t_category (id,NAME) VALUES ('1','jQuery');
+INSERT INTO t_category (id,NAME) VALUES ('2','js');
+INSERT INTO t_category (id,NAME) VALUES ('3','css');
+
+INSERT INTO t_category (id,NAME,url) VALUES ('10001','jQuery UI Widget Demo','http://sandbox.runjs.cn/show/zblr8lh9');
+
 -- 删除表
 DROP TABLE  t_order;
 DROP TABLE t_customer;
